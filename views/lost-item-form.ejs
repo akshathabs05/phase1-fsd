@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= title %></title><link rel="stylesheet" href="/styles.css"></head>
+<body><header class="topbar"><a class="brand" href="/">Campus <span>Lost & Found</span></a><nav><a href="/lost-items">Lost Items</a><a href="/found-items">Found Items</a></nav></header>
+<main class="page narrow"><a class="back" href="/lost-items">← Lost Items</a><h1>Report a Lost Item</h1><p class="muted">Enter the details so others can help you find it.</p>
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+<% if (!students.length) { %><div class="alert">Create a student profile first. <a href="/students/new">Create profile</a></div><% } %>
+<form method="POST" action="/lost-items" class="panel">
+<label>Item Name<input name="itemName" required value="<%= values.itemName || '' %>" placeholder="e.g. Blue water bottle"></label>
+<label>Category<select name="category" required><option value="">Choose a category</option><% ['Electronics','ID Card','Books & Notes','Bags','Clothing','Water Bottle','Keys','Other'].forEach(c => { %><option value="<%= c %>" <%= values.category === c ? 'selected' : '' %>><%= c %></option><% }) %></select></label>
+<label>Description<textarea name="description" required rows="3"><%= values.description || '' %></textarea></label>
+<label>Last Seen Location<input name="lastSeenLocation" required value="<%= values.lastSeenLocation || '' %>" placeholder="e.g. Library"></label>
+<label>Date Lost<input type="date" name="dateLost" required value="<%= values.dateLost || '' %>"></label>
+<label>Reported By (Student)<select name="reportedBy" required><option value="">Choose a student</option><% students.forEach(s => { %><option value="<%= s._id %>" <%= values.reportedBy === String(s._id) ? 'selected' : '' %>><%= s.fullName %> — <%= s.email %></option><% }) %></select></label>
+<button class="button primary" type="submit" <%= students.length ? '' : 'disabled' %>>Submit Lost Report</button>
+</form></main><footer>Campus Lost & Found Management System</footer></body></html>

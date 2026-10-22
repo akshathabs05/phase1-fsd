@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title><%= title %></title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="/">Campus <span>Lost & Found</span></a><nav><a href="/lost-items">Lost Items</a><a href="/found-items">Found Items</a></nav></header>
+<main class="page narrow"><a class="back" href="/">← Home</a><h1>Create Student Profile</h1><p class="muted">Create a profile before reporting a lost or found item.</p>
+<% if (error) { %><div class="alert"><%= error %></div><% } %>
+<form method="POST" action="/students" class="panel">
+<label>Full Name<input name="fullName" required minlength="2" value="<%= values.fullName || '' %>"></label>
+<label>College Email<input type="email" name="email" required value="<%= values.email || '' %>"></label>
+<label>Department<input name="department" required value="<%= values.department || '' %>"></label>
+<label>Contact Number<input name="contactNumber" required minlength="7" value="<%= values.contactNumber || '' %>"></label>
+<button class="button primary" type="submit">Create Profile</button>
+</form></main><footer>Campus Lost & Found Management System</footer></body></html>
